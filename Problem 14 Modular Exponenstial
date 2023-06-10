@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+   static long findExp(long x, long n, long m)
+   {
+    if (n == 0)
+     {
+       return 1;
+     }
+     int p = findExp(x, n / 2, m) % m;
+     if (n & 1)
+     {
+       return ((p%m * p%m) % m * x%m) % m;
+     }
+      else 
+     {
+       return ((p%m * p%m) % m);
+     }
+
+   }
+
+   int modularExponentiation(int x, int n, int m)
+    {
+     // Write your code here.
+     return (int)findExp((long)x, (long)n, (long)m)%m;
+    }
