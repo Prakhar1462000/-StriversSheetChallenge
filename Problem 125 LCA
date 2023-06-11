@@ -1,0 +1,60 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+TreeNode<int>* solve(TreeNode<int>* root, int p, int q)
+{
+     if(root == NULL)
+        {
+            return NULL;
+        }
+        if(root->data == p)
+        {
+            return root;
+        }
+        if(root->data == q)
+        {
+            return root;
+        }
+        TreeNode<int>* lft=solve(root->left,p,q);
+        TreeNode<int>* rgt=solve(root->right,p,q);
+        if(lft == NULL && rgt == NULL)
+        {
+            return NULL;
+        }
+        else if(lft == NULL && rgt != NULL)
+        {
+            return rgt;
+        }
+        else if(lft != NULL && rgt == NULL)
+        {
+            return lft;
+        }
+        else
+        {
+            return root;
+        }
+}
+
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+	//    Write your code here
+    TreeNode<int>* ans= solve(root,x,y);
+    return ans->data;
+}
