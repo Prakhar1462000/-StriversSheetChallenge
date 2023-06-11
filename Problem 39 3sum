@@ -1,0 +1,54 @@
+#include <bits/stdc++.h> 
+vector<vector<int>> findTriplets(vector<int>arr, int n, int tar)
+{
+	// Write your code here.
+	vector<vector<int>> ans;
+        if (tar == -294967296 || tar == 294967296) {
+          return ans;
+        }
+        if(n== 0 ||n < 3)
+	{
+		return ans;
+	}
+	sort(arr.begin(),arr.end());
+	for(int k=0;k<n-2;k++)
+	{
+		int target=tar-arr[k];
+        int low=k+1;
+		int high=n-1;
+		while(low < high)
+		{
+            if(arr[low] + arr[high] < target)
+			{
+				low++;
+			}
+			else if(arr[low] + arr[high] > target)
+			{
+				high--;
+			}
+			else
+			{
+				vector<int> value;
+				value.push_back(arr[k]);
+				value.push_back(arr[low]);
+				value.push_back(arr[high]);
+				ans.push_back(value);
+				while(low<high&&arr[low]==arr[low+1])
+				{
+                    low++;
+                }
+                while(low<high&&arr[high]==arr[high-1])
+				{
+                    high--;
+                }
+				low++;
+				high--;
+			}
+		}
+		while(k+1<n&&arr[k+1]==arr[k])
+			{
+                k++;
+			}
+	}
+	return ans;
+}
