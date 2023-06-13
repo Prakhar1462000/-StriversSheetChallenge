@@ -1,0 +1,84 @@
+/**
+ * Definition of linked list:
+ *
+ * class Node {
+ * public:
+ *      int data;
+ *      Node *next;
+ *      Node() {
+ *          this->data = 0;
+ *          this->next = NULL;
+ *      }
+ *      Node(int data) {
+ *          this->data = data;
+ *          this->next = NULL;
+ *      }
+ *      Node (int data, Node *next) {
+ *          this->data = data;
+ *          this->next = next;
+ *      }
+ * };
+ *
+ *************************************************************************/
+
+ Node* reverse(Node* temp)
+ {
+     Node* curr=temp;
+     Node* prev=NULL;
+     Node* forw=NULL;
+     while(curr != NULL)
+     {
+         forw=curr->next;
+         curr->next=prev;
+         prev=curr;
+         curr=forw;
+     }
+     return prev;
+ }
+
+Node *addTwoNumbers(Node *n1, Node *n2)
+{
+    // Write your code here.
+    Node* num1=n1;
+    Node* num2=n2;
+    Node* curr=new Node(-1);
+    Node* temp=curr;
+    int carry=0;
+    while(num1 != NULL && num2 != NULL)
+    {
+       int a=num1->data;
+       int b=num2->data;
+       int sum=a+b+carry;
+       int ans=sum%10;
+       curr->next=new Node(ans);
+       curr=curr->next;
+       carry=sum/10;
+       num1=num1->next;
+       num2=num2->next;
+    }
+    while(num1 != NULL)
+    {
+        int sum=num1->data+carry;
+        int ans=sum%10;
+        carry=sum/10;
+        curr->next=new Node(ans);
+        curr=curr->next;
+        num1=num1->next;
+    }
+    while(num2 != NULL)
+    {
+        int sum=num2->data+carry;
+        int ans=sum%10;
+        carry=sum/10;
+        curr->next=new Node(ans);
+        curr=curr->next;
+        num2=num2->next;
+    }
+    if(carry != 0)
+    {
+        curr->next=new Node(carry);
+        curr=curr->next;
+    }
+    temp=temp->next;
+    return temp;
+}
