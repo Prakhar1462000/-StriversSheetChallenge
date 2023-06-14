@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+class node{
+    public:
+    int value;
+    int r;
+    int c;
+    node(int val,int r,int c)
+    {
+        value=val;
+        this->r=r;
+        this->c=c;
+    }
+};
+class compare{
+    public:
+    bool operator()(node* a,node* b){
+        return a->value > b->value;
+    }
+
+};
+vector<int> mergeKSortedArrays(vector<vector<int>>& arr, int k) {
+    int m = arr.size();
+    int n = arr[0].size();
+    
+    priority_queue<node*, vector<node*>, compare> pq;
+    
+    for (int i = 0; i < k; i++) {
+        node* vlu = new node(arr[i][0], i, 0);
+        pq.push(vlu);
+    }
+    
+    vector<int> ans;
+    
+    while (!pq.empty()) {
+        node* temp = pq.top();
+        int topelement = temp->value;
+        int row = temp->r;
+        int col = temp->c;
+        pq.pop();
+        ans.push_back(topelement);
+        
+        if (col + 1 < arr[row].size()) {
+            node* next = new node(arr[row][col + 1], row, col + 1);
+            pq.push(next);
+        }
+    }
+    
+    return ans;
+}
