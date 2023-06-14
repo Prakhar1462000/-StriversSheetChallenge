@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+int subarraysXor(vector<int> &arr, int x)
+{
+    //    Write your code here.
+    int ans=0;
+    int n= arr.size();
+
+  int prefixXor = 0;
+    unordered_map<int, int> countMap;
+    
+    countMap[0] = 1; // Count of prefix XOR 0
+    
+    for (int i = 0; i < n; i++) {
+        prefixXor ^= arr[i];
+        
+        // Check if there is a subarray with XOR equal to x
+        if (countMap.find(prefixXor ^ x) != countMap.end()) {
+            ans += countMap[prefixXor ^ x];
+        }
+        
+        // Update the count of the current prefix XOR value
+        countMap[prefixXor]++;
+    }
+  return ans;
+}
