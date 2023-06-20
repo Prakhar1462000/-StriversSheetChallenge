@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+void solve(vector<int> arr, int i,vector<int> chota,vector<vector<int>>& ans)
+{
+    if(i >= arr.size())
+    {
+        ans.push_back(chota);
+        chota.clear();
+        return;
+    }
+    chota.push_back(arr[i]);
+    solve(arr,i+1,chota,ans);
+    chota.pop_back();
+    solve(arr,i+1,chota,ans);
+}
+vector<vector<int>> pwset(vector<int>v)
+{
+    //Write your code here
+    vector<vector<int>> ans;
+    vector<int>chota;
+    int i=0;
+    solve(v,i,chota,ans);
+    return ans;
+}
