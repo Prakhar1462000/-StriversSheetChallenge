@@ -1,0 +1,38 @@
+string reverseString(string &str)
+{
+	// Write your code here.
+
+	vector<string> ans;
+    string word;
+    string reversedStr;
+	
+
+	for (char ch : str)
+    {
+      if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+      {
+        word += ch;
+      }
+      else if (ch == ' ' && !word.empty())
+      {
+        ans.push_back(word);
+        word.clear();
+      }
+    }
+
+    if (!word.empty())
+    {
+        ans.push_back(word);
+    }
+
+    for (int i = ans.size() - 1; i > 0; i--)
+    {
+        reversedStr += ans[i] + " ";
+    }
+
+    if (!ans.empty())
+    {
+        reversedStr += ans[0];
+    }
+	 return reversedStr;
+}
