@@ -1,0 +1,27 @@
+unordered_map<int, int> frequencyMap;
+    int distinctCount = 0;
+
+    // Count the frequency of elements in the first window
+    for (int i = 0; i < k; i++) {
+        frequencyMap[arr[i]]++;
+        if (frequencyMap[arr[i]] == 1) {
+            distinctCount++;
+        }
+    }
+
+    ans.push_back(distinctCount);
+
+    // Slide the window and update the frequency map and distinct count
+    for (int i = k; i < n; i++) {
+        frequencyMap[arr[i - k]]--;
+        if (frequencyMap[arr[i - k]] == 0) {
+            distinctCount--;
+        }
+        frequencyMap[arr[i]]++;
+        if (frequencyMap[arr[i]] == 1) {
+            distinctCount++;
+        }
+        ans.push_back(distinctCount);
+    }
+
+    return ans;
