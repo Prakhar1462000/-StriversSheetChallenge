@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+bool solve(vector<int>& arr, int n, int target, vector<vector<int>>& dp) {
+    if (target == 0) {
+        return true;
+    }
+    if (n == 0) {
+        return false;
+    }
+    if (dp[n][target] != -1) {
+        return dp[n][target];
+    }
+    bool result = false;
+    if (arr[n - 1] <= target) {
+        result = solve(arr, n - 1, target - arr[n - 1], dp) || solve(arr, n - 1, target, dp);
+    } else {
+        result = solve(arr, n - 1, target, dp);
+    }
+    dp[n][target] = result ? 1 : 0;
+    return result;
+}
+
+bool subsetSumToK(int n, int k, vector<int>& arr) {
+    vector<vector<int>> dp(n + 1, vector<int>(k + 1, -1));
+    return solve(arr, n, k, dp);
+}
